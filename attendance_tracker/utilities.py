@@ -48,7 +48,7 @@ def insights(request):
     records = Attendance.objects.filter(center=request.user).values("student", "time", "status", "id")
 
     data_text =  "\n".join([f"{r['student']} ({r['id']}) - {r['time']} - {r['status']}" for r in records])
-    print(predicted_attendance(request))
+    # print(predicted_attendance(request))
     prompt = f"""
     You are an assistant that analyzes attendance data. 
     ONLY use the data below, do not invent or assume values.
