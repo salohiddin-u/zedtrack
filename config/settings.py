@@ -107,11 +107,12 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
-ACCOUNT_LOGIN_METHODS = {"username", "email"}  # allow login via username OR email
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # or "email"
+
 
 ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
 
-ACCOUNT_EMAIL_VERIFICATION = "none"  # can be "optional" or "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.mail.me.com"
@@ -120,6 +121,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "usmonaliyev_s@icloud.com"   # your real email
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = "usmonaliyev_s@icloud.com"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 LANGUAGE_CODE = 'en-us'
 
