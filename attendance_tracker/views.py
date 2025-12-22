@@ -44,5 +44,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context['line_chart_data'] = line_chart_data
         context['line_chart_labels'] = line_chart_labels
+        context['recents_attendance_records'] = Attendance.objects.filter(user=user, status=True)[:5]
 
         return context
