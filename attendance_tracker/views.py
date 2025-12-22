@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, View
+from django.db.models import Count, Q, F, FloatField, ExpressionWrapper, Case, When, Value
+from django.utils import timezone
 
 from attendance_tracker.models import Attendance
 from students.models import Student
@@ -13,6 +15,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        since = timezone.now() - timedelta(days=30)
 
         user = self.request.user
         students = Student.objects.filter(user=user)
@@ -27,4 +30,19 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['attendance_rate'] = (Attendance.objects.filter(user=user, status=True, time__date=datetime.today()).count()/Student.objects.filter(user=user).count())*100 if Student.objects.filter(user=user).count() else 0
         context['attendance_rate_yesterday'] = (Attendance.objects.filter(user=user, status=True, time__date=datetime.today()-timedelta(days=1)).count()/Student.objects.filter(user=user).count())*100 if Student.objects.filter(user=user).count() else 0
         context['diffrence_rate'] = context['attendance_rate'] - context['attendance_rate_yesterday']
+
+        line_chart_labels = []
+        line_chart_data = []
+
+
+        for i in range(30):
+            line_chart_data.append((Attendance.objects.filter(user=user, status=True, time__date=datetime.today() - timedelta(
+                days=i)).count() / Student.objects.filter(user=user).count()) * 100 if Student.objects.filter(
+                user=user).count() else 0)
+
+            line_chart_labels.append(datetime.today().date() - timedelta(days=i))
+
+        context['line_chart_data'] = line_chart_data
+        context['line_chart_labels'] = line_chart_labels
+
         return context
