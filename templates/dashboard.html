@@ -375,26 +375,26 @@
                   <canvas id="trafficChart"></canvas>
                </div>
             </section>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-               <section class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ">
-                  <header class="mb-4 flex items-center justify-between">
-                     <h2 class="text-lg font-semibold text-slate-800 dark:text-white">Absence Reason</h2>
-                     <span class="text-sm text-slate-500 dark:text-gray-400">Current Month</span>
-                  </header>
-                  <div class="h-72">
-                     <canvas id="PieChart"></canvas>
-                  </div>
-               </section>
-               <section class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-                  <header class="mb-4 flex items-center justify-between">
-                     <h2 class="text-lg font-semibold text-slate-800 dark:text-white">Attendance Rate</h2>
-                     <span class="text-sm text-slate-500 dark:text-gray-400">Last 7 days</span>
-                  </header>
-                  <div class="h-72">
-                     <canvas id="BarChart"></canvas>
-                  </div>
-               </section>
-            </div>
+<!--            <div class="grid grid-cols-2 gap-4 mb-4">-->
+<!--               <section class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ">-->
+<!--                  <header class="mb-4 flex items-center justify-between">-->
+<!--                     <h2 class="text-lg font-semibold text-slate-800 dark:text-white">Absence Reason</h2>-->
+<!--                     <span class="text-sm text-slate-500 dark:text-gray-400">Current Month</span>-->
+<!--                  </header>-->
+<!--                  <div class="h-72">-->
+<!--                     <canvas id="PieChart"></canvas>-->
+<!--                  </div>-->
+<!--               </section>-->
+<!--               <section class="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">-->
+<!--                  <header class="mb-4 flex items-center justify-between">-->
+<!--                     <h2 class="text-lg font-semibold text-slate-800 dark:text-white">Attendance Rate</h2>-->
+<!--                     <span class="text-sm text-slate-500 dark:text-gray-400">Last 7 days</span>-->
+<!--                  </header>-->
+<!--                  <div class="h-72">-->
+<!--                     <canvas id="BarChart"></canvas>-->
+<!--                  </div>-->
+<!--               </section>-->
+<!--            </div>-->
             <section class="mt-10 bg-white rounded-xl shadow-sm">
                <header class="p-4 border-b border-slate-100 dark:bg-gray-800 dark:rounded-t-xl">
                   <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">Recent Records</h2>
@@ -431,7 +431,8 @@
                         </tr>
                      </thead>
                      <tbody class="divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
+                        {% for r in recents_attendance_records %}
+                            <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
                            <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">Alice Johnson</td>
                            <td class="px-6 py-4 dark:text-slate-50">28</td>
                            <td class="px-6 py-4 dark:text-slate-50">Designer</td>
@@ -439,30 +440,7 @@
                               <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Active</span>
                            </td>
                         </tr>
-                        <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                           <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">Michael Chen</td>
-                           <td class="px-6 py-4 dark:text-slate-50">34</td>
-                           <td class="px-6 py-4 dark:text-slate-50">Developer</td>
-                           <td class="px-6 py-4 text-right">
-                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-slate-700 bg-slate-100 rounded-full">Offline</span>
-                           </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                           <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">Sofia Martinez</td>
-                           <td class="px-6 py-4 dark:text-slate-50">26</td>
-                           <td class="px-6 py-4 dark:text-slate-50">Project Manager</td>
-                           <td class="px-6 py-4 text-right">
-                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Active</span>
-                           </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                           <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">David Kim</td>
-                           <td class="px-6 py-4 dark:text-slate-50">29</td>
-                           <td class="px-6 py-4 dark:text-slate-50">Support</td>
-                           <td class="px-6 py-4 text-right">
-                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-amber-700 bg-amber-100 rounded-full">Pending</span>
-                           </td>
-                        </tr>
+                        {% endfor %}
                      </tbody>
                   </table>
                </div>
