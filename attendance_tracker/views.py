@@ -81,3 +81,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         )
 
         return context
+
+class MarkingAttendance(LoginRequiredMixin, TemplateView):
+    template_name = 'marking_attendance.html'
+    login_url = 'account_login'

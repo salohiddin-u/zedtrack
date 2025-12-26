@@ -3,9 +3,10 @@ from django.urls import path, include
 
 from attendance_tracker.views import *
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', DashboardView.as_view(), name='dashboard'),
+    path('', include('attendance_tracker.urls')),
     path('accounts/', include('allauth.urls')),
 
 ]
