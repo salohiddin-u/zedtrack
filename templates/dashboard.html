@@ -413,15 +413,24 @@
                            </th>
                            <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
                               <div class="flex items-center gap-1">
-                                 Age
+                                 Time
                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
                                  </svg>
                               </div>
                            </th>
+
                            <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="string">
                               <div class="flex items-center gap-1">
-                                 Role
+                                 Course
+                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                                 </svg>
+                              </div>
+                           </th>
+                            <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
+                              <div class="flex items-center gap-1">
+                                 Phone Number
                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
                                  </svg>
@@ -433,12 +442,19 @@
                      <tbody class="divide-y divide-slate-100">
                         {% for r in recents_attendance_records %}
                             <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                           <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">Alice Johnson</td>
-                           <td class="px-6 py-4 dark:text-slate-50">28</td>
-                           <td class="px-6 py-4 dark:text-slate-50">Designer</td>
-                           <td class="px-6 py-4 text-right">
-                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Active</span>
+                           <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ r.student.first_name }} {{ r.student.last_name }}</td>
+                           <td class="px-6 py-4 dark:text-slate-50">{{ r.time }}</td>
+                           <td class="px-6 py-4 dark:text-slate-50">{{ r.student.course }}</td>
+                           <td class="px-6 py-4 dark:text-slate-50">{{ r.student.phone_number }}</td>
+                           {% if r.status %}
+                                <td class="px-6 py-4 text-right">
+                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Present</span>
                            </td>
+                            {% else %}
+                                <td class="px-6 py-4 text-right">
+                              <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-red-700 bg-red-200 rounded-full">Absent</span>
+                           </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                      </tbody>

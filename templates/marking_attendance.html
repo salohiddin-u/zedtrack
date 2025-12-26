@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
    <head>
       <script>
@@ -24,7 +25,7 @@
       </script>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Dashboard | ZEDTRACK</title>
+      <title>Marking Attendance | ZEDTRACK</title>
       <!-- Tailwind CSS -->
       <script src="https://cdn.tailwindcss.com"></script>
       <!-- Flowbite CSS -->
@@ -35,7 +36,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-      <link rel="shortcut icon" href="logo.png"
+      <link rel="shortcut icon" href="{% static 'logo.png' %}"
          type="image/x-icon"/>
       <style>
          /* smooth horizontal sweep behind item */
@@ -115,9 +116,9 @@
                      </svg>
                      <span class="sr-only">Toggle sidebar</span>
                   </button>
-                  <a href="dashboard.html" class="flex items-center justify-between mr-4">
+                  <a href="{% url 'dashboard' %}" class="flex items-center justify-between mr-4">
                   <img style="border-radius: 8px;"
-                     src="logo.png"
+                     src="{% static 'logo.png' %}"
                      class="mr-3 h-8"
                      alt="ZEDTRACK Logo"
                      />
@@ -156,7 +157,7 @@
                      >
                   <img
                      class="w-8 h-8 rounded-full"
-                     src="logo.png"
+                     src="{% static 'profile.png' %}"
                      alt="user photo"
                      />
                   </button>
@@ -201,7 +202,7 @@
                <ul class="space-y-2">
                   <li>
                      <a
-                        href="dashboard.html"
+                        href="{% url 'dashboard' %}"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -212,7 +213,7 @@
                   </li>
                   <li>
                      <a
-                        href="marking_attendance.html"
+                        href="{% url 'marking-attendance' %}"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg group bg-blue-200"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -352,10 +353,13 @@
                               Name <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
                            </th>
                            <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="course">
-                              Course <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
+                              Teacher <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
+                           </th>
+                            <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="course">
+                              Time <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
                            </th>
                            <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="status">
-                              Status <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
+                              Days <i class="fa-solid fa-sort text-gray-400 ml-1"></i>
                            </th>
                         </tr>
                      </thead>
