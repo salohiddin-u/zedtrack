@@ -46,4 +46,38 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['line_chart_labels'] = line_chart_labels
         context['recents_attendance_records'] = Attendance.objects.filter(user=user, status=True)[:5]
 
+        since = timezone.now() - timedelta(days=30)
+
+        context['high_attendance'] = (
+            Student.objects.filter(user=user)
+            .annotate(
+                total=Count('attendance', filter=Q(attendance__time__gte=since)),
+                present=Count('attendance', filter=Q(attendance__time__gte=since, attendance__status=True)),
+            )
+            .annotate(
+                rate=Case(
+                    When(total=0, then=Value(0.0)),
+                    default=ExpressionWrapper(F('present') * 100.0 / F('total'), output_field=FloatField()),
+                )
+            )
+            .filter(rate__gte=70)
+            .order_by('-rate')[:10]
+        )
+
+        context['low_attendance'] = (
+            Student.objects.filter(user=user)
+            .annotate(
+                total=Count('attendance', filter=Q(attendance__time__gte=since)),
+                present=Count('attendance', filter=Q(attendance__time__gte=since, attendance__status=True)),
+            )
+            .annotate(
+                rate=Case(
+                    When(total=0, then=Value(0.0)),
+                    default=ExpressionWrapper(F('present') * 100.0 / F('total'), output_field=FloatField()),
+                )
+            )
+            .filter(rate__lte=60)
+            .order_by('-rate')[:10]
+        )
+
         return context
