@@ -329,21 +329,17 @@
                      <thead class="bg-blue-200 text-xs uppercase">
                         <tr>
                            <th class="px-6 py-3 cursor-pointer" data-column="0">Name ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer" data-column="1">Teacher ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer" data-column="2">Days ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer" data-column="2">Time ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer" data-column="0"></th>
                            <th class="px-6 py-3 cursor-pointer" data-column="2">Status ⬍</th>
                         </tr>
                      </thead>
                      <tbody id="tableBody">
                         <!-- HTML DATA -->
 
-                     {% for course in students %}
-                        <tr onclick="window.location.href='{% url 'mark-attendance' course.id %}'" class="cursor-pointer hover:bg-blue-50">
-                           <td class="px-6 py-4 font-bold">{{ course.name }}</td>
-                           <td class="px-6 py-4">{{ course.teacher }}</td>
-                           <td class="px-6 py-4">{% for day in course.days %} {{ day }}, {% endfor %}</td>
-                           <td class="px-6 py-4">{{ course.time }}</td>
+                     {% for student in students %}
+                        <tr class="cursor-pointer hover:bg-blue-50">
+                           <td class="px-6 py-4 font-bold">{{ student.first_name }} {{ student.last_name }}</td>
+                           <td class="px-6 py-4 font-bold"></td>
                            <td class="px-6 py-4">
                                <label class="inline-flex items-center cursor-pointer relative">
                                        <input type="checkbox" class="sr-only peer" />
@@ -353,6 +349,7 @@
                                        <span class="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">Present</span>
                                     </label>
                            </td>
+
                         </tr>
                      {% endfor %}
                      </tbody>
