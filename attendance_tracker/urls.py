@@ -4,5 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('', DashboardView.as_view(), name="dashboard"),
-    path('marking-attendance/', MarkingAttendance.as_view(), name="marking-attendance"),
+    path('mark-attendance/', MarkingAttendanceView.as_view(), name="marking-attendance"),
+    path('mark-attendance/<int:a>/', MarkAttendanceView.as_view(), name="mark-attendance"),
+
 ]

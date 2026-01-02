@@ -381,68 +381,7 @@
             </section>
          </main>
       </div>
-      <script>
-         const rowsPerPage = 10;
-         let currentPage = 1;
-         
-         const tableBody = document.getElementById("students-table-body");
-         const searchInput = document.getElementById("student-search");
-         const paginationInfo = document.getElementById("pagination-info");
-         const prevBtn = document.getElementById("prev-page");
-         const nextBtn = document.getElementById("next-page");
-         
-         let allRows = Array.from(tableBody.querySelectorAll("tr"));
-         
-         function filterRows(query) {
-           return allRows.filter(row => {
-             const text = row.innerText.toLowerCase();
-             return text.includes(query.toLowerCase());
-           });
-         }
-         
-         function renderTable(filteredRows) {
-           const totalRows = filteredRows.length;
-           const start = (currentPage - 1) * rowsPerPage;
-           const end = start + rowsPerPage;
-           const visibleRows = filteredRows.slice(start, end);
-         
-           // Hide all rows
-           allRows.forEach(row => row.style.display = "none");
-           // Show only current page rows
-           visibleRows.forEach(row => row.style.display = "");
-         
-           paginationInfo.textContent = `Showing ${start + 1} to ${Math.min(end, totalRows)} of ${totalRows} students`;
-           prevBtn.disabled = currentPage === 1;
-           nextBtn.disabled = end >= totalRows;
-         }
-         
-         // Search event
-         searchInput.addEventListener("input", () => {
-           currentPage = 1;
-           const query = searchInput.value;
-           const filtered = filterRows(query);
-           renderTable(filtered);
-         });
-         
-         // Pagination
-         prevBtn.addEventListener("click", () => {
-           if (currentPage > 1) {
-             currentPage--;
-             renderTable(filterRows(searchInput.value));
-           }
-         });
-         
-         nextBtn.addEventListener("click", () => {
-           const filtered = filterRows(searchInput.value);
-           if (currentPage * rowsPerPage < filtered.length) {
-             currentPage++;
-             renderTable(filtered);
-           }
-         });
-         
-         // Initial render
-         renderTable(allRows);
-      </script>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
       <script>
          tailwind = window.tailwind || {};

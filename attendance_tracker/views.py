@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
 from django.db.models import Count, Q, F, FloatField, ExpressionWrapper, Case, When, Value
 from django.utils import timezone
 
@@ -83,12 +83,22 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         return context
 
-class MarkingAttendance(LoginRequiredMixin, TemplateView):
+class MarkingAttendanceView(LoginRequiredMixin, TemplateView):
     template_name = 'marking_attendance.html'
     login_url = 'account_login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['courses'] = Course.objects.filter(center=self.request.user)
+
+        return context
+
+class MarkAttendanceView(LoginRequiredMixin, TemplateView):
+    template_name = 'mark_attendance.html'
+    login_url = 'account_login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['students'] = Student.objects.filter(center=self.request.user)
 
         return context

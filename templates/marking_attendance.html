@@ -235,7 +235,7 @@
                   </li>
                   <li>
                      <a
-                        href="students_list.html"
+                        href="{% url 'students' %}"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 768">
@@ -246,7 +246,7 @@
                   </li>
                   <li>
                      <a
-                        href="#"
+                        href="{% url 'teachers' %}"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28">
@@ -257,7 +257,7 @@
                   </li>
                   <li>
                      <a
-                        href="courses_list.html"
+                        href="{% url 'courses' %}"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
@@ -324,25 +324,27 @@
                      />
                </div>
                <!-- Table -->
-               <div class="overflow-x-auto">
+               <div class="overflow-x-auto rounded-lg">
                   <table class="w-full text-sm text-left text-gray-600">
-                     <thead class="bg-gray-50 text-xs uppercase">
+                     <thead class="bg-blue-200 text-xs uppercase">
                         <tr>
                            <th class="px-6 py-3 cursor-pointer" data-column="0">Name ⬍</th>
                            <th class="px-6 py-3 cursor-pointer" data-column="1">Teacher ⬍</th>
                            <th class="px-6 py-3 cursor-pointer" data-column="2">Days ⬍</th>
                            <th class="px-6 py-3 cursor-pointer" data-column="2">Time ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer" data-column="2">Status ⬍</th>
                         </tr>
                      </thead>
                      <tbody id="tableBody">
                         <!-- HTML DATA -->
 
                      {% for course in courses %}
-                        <tr>
-                           <td class="px-6 py-4">{{ course.name }}</td>
+                        <tr onclick="window.location.href='{% url 'mark-attendance' course.id %}'" class="cursor-pointer hover:bg-blue-50">
+                           <td class="px-6 py-4 font-bold">{{ course.name }}</td>
                            <td class="px-6 py-4">{{ course.teacher }}</td>
                            <td class="px-6 py-4">{% for day in course.days %} {{ day }}, {% endfor %}</td>
                            <td class="px-6 py-4">{{ course.time }}</td>
+                           <td class="px-6 py-4">*status</td>
                         </tr>
                      {% endfor %}
                      </tbody>
