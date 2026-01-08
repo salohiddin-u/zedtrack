@@ -8,9 +8,9 @@
     <title>Logout</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white p-6 rounded-lg shadow-md max-w-md w-full text-center">
-    <h1 class="text-xl font-bold mb-4">Are you sure you want to log out?</h1>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen dark:bg-zinc-900">
+  <div class="bg-white p-6 rounded-lg shadow-md max-w-md w-full text-center dark:bg-zinc-800">
+    <h1 class="text-xl font-bold mb-4 dark:text-gray-50">Are you sure you want to log out?</h1>
     <form method="POST" action="{% url 'account_logout' %}">
       {% csrf_token %}
       <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">
