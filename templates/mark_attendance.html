@@ -14,27 +14,29 @@
                </div>
 
                <!-- Table -->
-               <form id="attendanceForm">
+               <form id="attendanceForm" action="{% url 'attendance-create' course_id %}" method="POST"> {% csrf_token %}
                   <div class="overflow-x-auto rounded-lg">
                      <table class="w-full text-sm text-left text-gray-600">
-                        <thead class="bg-blue-200 text-xs uppercase">
+                        <thead class="bg-blue-700/30 text-xs uppercase">
                            <tr>
-                              <th class="px-6 py-3 cursor-pointer" data-column="0">Name ⬍</th>
-                              <th class="px-6 py-3 cursor-pointer" data-column="0"></th>
-                              <th class="px-6 py-3 cursor-pointer" data-column="2">Status ⬍</th>
+                              <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0">Name ⬍</th>
+                              <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0"></th>
+                              <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="2">Status ⬍</th>
                            </tr>
                         </thead>
                         <tbody id="tableBody">
                            <!-- HTML DATA -->
                            {% for student in students %}
-                           <tr onclick="toggleCheckbox(event, this)" class="cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-600">
-                              <td class="px-6 py-4 font-bold dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
+                           <tr onclick="toggleCheckbox(event, this)" class="cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700">
+                              <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
                               <td class="px-6 py-4 font-bold"></td>
                               <td class="px-6 py-4">
                                  <div class="flex items-center">
                                     <input
                                        id="checkbox-{{ student.id }}"
+                                       name="status-{{ student.id }}"
                                        type="checkbox"
+                                       value="present"
                                        class="attendance-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox-{{ student.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Present</label>
                                  </div>
@@ -48,7 +50,7 @@
                </form>
 
                <!-- Pagination -->
-               <div class="flex justify-between items-center p-4 border-t">
+               <div class="flex justify-between items-center pt-4 pb-4 border-t">
                   <span id="pageInfo" class="text-sm text-gray-600 dark:text-gray-50"></span>
                   <div class="space-x-2">
                      <button id="prevBtn" class="px-3 py-1 border rounded dark:text-gray-50">Prev</button>
@@ -56,8 +58,7 @@
                   </div>
                </div>
 
-               <!-- ✅ Sticky action bar (Submit near the end = better UX) -->
-               <div class="sticky bottom-0 bg-white dark:bg-zinc-800 border-t px-6 py-3 flex items-center justify-between">
+               <div class="sticky bottom-0 bg-white dark:bg-zinc-800 border-t pt-4 flex items-center justify-between">
                   <span id="selectedCount" class="text-sm text-gray-600 dark:text-gray-300">
                      Selected: 0 students
                   </span>

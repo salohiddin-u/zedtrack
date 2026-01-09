@@ -16,11 +16,11 @@
                   <table class="w-full text-sm text-left text-zinc-100">
                      <thead class="bg-blue-700/30 text-xs uppercase">
                         <tr>
-                           <th class="px-6 py-3 cursor-pointer select-none" data-column="0">Name ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer select-none" data-column="1">Teacher ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer select-none" data-column="2">Days ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer select-none" data-column="3">Time ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer select-none" data-column="4">Status ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0">Name ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="1">Teacher ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="2">Days ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="3">Time ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="4">Status ⬍</th>
                         </tr>
                      </thead>
                      <tbody id="tableBody">
@@ -28,11 +28,11 @@
 
                      {% for course in courses %}
                         <tr onclick="window.location.href='{% url 'mark-attendance' course.id %}'" class="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700">
-                           <td class="px-6 py-4 font-bold dark:text-gray-50">{{ course.name }}</td>
-                           <td class="px-6 py-4 dark:text-gray-50">{{ course.teacher }}</td>
-                           <td class="px-6 py-4 dark:text-gray-50">{% for day in course.days %} {{ day }}, {% endfor %}</td>
-                           <td class="px-6 py-4 dark:text-gray-50">{{ course.time }}</td>
-                           <td class="px-6 py-4 dark:text-gray-50">*status</td>
+                           <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ course.name }}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.teacher }}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50">{% for day in course.days %} {{ day }}, {% endfor %}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.time }}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50">*status</td>
                         </tr>
                      {% endfor %}
                      </tbody>
