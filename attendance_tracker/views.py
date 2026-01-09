@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 
+from allauth.core.internal.httpkit import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, View, DetailView
+from django.views.generic import TemplateView, View, DetailView, CreateView
 from django.db.models import Count, Q, F, FloatField, ExpressionWrapper, Case, When, Value
 from django.utils import timezone
 
@@ -45,7 +46,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context['line_chart_data'] = line_chart_data
         context['line_chart_labels'] = line_chart_labels
-        context['recents_attendance_records'] = Attendance.objects.filter(center=user)[:5]
+        context['recents_attendance_records'] = Attendance.objects.filter(center=user, ).order_by("-time")[:5]
 
         since = timezone.now() - timedelta(days=30)
 
@@ -101,5 +102,18 @@ class MarkAttendanceView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         course_id = self.kwargs['a']
         context['students'] = Student.objects.filter(center=self.request.user, course__id=course_id)
+        context['course_id'] = course_id
 
         return context
+
+def attendance_create(request, course_id):
+    if request.method == 'POST':
+        students = Student.objects.filter(center=request.user, course__id=course_id)
+        for student in students:
+            if request.POST.get(f"status-{student.id}") != None:
+                status = request.POST.get(f"status-{student.id}") == "present"
+                print(status)
+                course = Course.objects.get(id=course_id)
+                attendance = Attendance.objects.create(student=student, time=timezone.now(), course=course,
+                                                       status=status, center=request.user, marked_by=request.user)
+        return redirect("/mark-attendance/")
