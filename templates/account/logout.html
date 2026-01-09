@@ -3,6 +3,27 @@
 {% load static %}
 <html lang="en">
 <head>
+                <script>
+         (() => {
+           try {
+             const theme = localStorage.getItem('color-theme');
+             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+             const useDark = theme === 'dark' || (!theme && prefersDark);
+
+             if (useDark) {
+               document.documentElement.classList.add('dark');
+             } else {
+               document.documentElement.classList.remove('dark');
+             }
+
+             // Optional: prevent flicker by hiding body until CSS applies
+             document.documentElement.style.visibility = 'hidden';
+             window.addEventListener('DOMContentLoaded', () => {
+               document.documentElement.style.visibility = '';
+             });
+           } catch (e) {}
+         })();
+      </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Logout</title>
@@ -19,5 +40,42 @@
     </form>
     <a href="/" class="mt-4 inline-block text-blue-600 hover:underline text-sm">Cancel</a>
   </div>
+<script>
+         tailwind = window.tailwind || {};
+         tailwind.config = tailwind.config || {};
+         tailwind.config.darkMode = 'class';
+      </script>
+      <script>
+         tailwind.config = { darkMode: 'class' };
+      </script>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const btn = document.getElementById('theme-toggle');
+           const darkIcon = document.getElementById('theme-toggle-dark-icon');
+           const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+           // Set initial theme
+           const storedTheme = localStorage.getItem('color-theme');
+           if (storedTheme === 'dark') {
+             document.documentElement.classList.add('dark');
+             darkIcon.classList.add('hidden');
+             lightIcon.classList.remove('hidden');
+           } else {
+             document.documentElement.classList.remove('dark');
+             lightIcon.classList.add('hidden');
+             darkIcon.classList.remove('hidden');
+           }
+
+           // Toggle theme on click
+           btn.addEventListener('click', () => {
+             document.documentElement.classList.toggle('dark');
+             const isDark = document.documentElement.classList.contains('dark');
+             localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+
+             darkIcon.classList.toggle('hidden', isDark);
+             lightIcon.classList.toggle('hidden', !isDark);
+           });
+         });
+      </script>
 </body>
 </html>
