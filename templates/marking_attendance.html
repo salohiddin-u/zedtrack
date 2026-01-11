@@ -26,13 +26,13 @@
                      <tbody id="tableBody">
                         <!-- HTML DATA -->
 
-                     {% for course in courses %}
+                     {% for course, status in courses.items %}
                         <tr onclick="window.location.href='{% url 'mark-attendance' course.id %}'" class="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700">
                            <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ course.name }}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.teacher }}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{% for day in course.days %} {{ day }}, {% endfor %}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.time }}</td>
-                           <td class="px-6 py-4 text-black dark:text-gray-50">*status</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ status }}</td>
                         </tr>
                      {% endfor %}
                      </tbody>
