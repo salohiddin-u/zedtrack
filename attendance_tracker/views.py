@@ -90,8 +90,16 @@ class MarkingAttendanceView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['courses'] = Course.objects.filter(center=self.request.user)
+        courses = {}
 
+        for course in Course.objects.filter(center=self.request.user):
+            print(Attendance.objects.filter(time=timezone.localdate()).exists())
+            if Attendance.objects.filter(course__id=course.id, time=datetime.today()).exists():
+                status = "Marked"
+            else:
+                status = "Not Marked"
+            courses[course] = status
+        context['courses'] = courses
         return context
 
 class MarkAttendanceView(LoginRequiredMixin, TemplateView):
@@ -101,6 +109,7 @@ class MarkAttendanceView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         course_id = self.kwargs['a']
+
         context['students'] = Student.objects.filter(center=self.request.user, course__id=course_id)
         context['course_id'] = course_id
 
