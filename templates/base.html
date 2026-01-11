@@ -413,6 +413,26 @@
          });
       </script>
       <script>
+  window.addEventListener('beforeunload', () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+  });
+</script>
+<script>
+  document.addEventListener('fullscreenchange', () => {
+    const icon = document.querySelector('#fullscreen-btn i');
+    if (!icon) return;
+
+    if (document.fullscreenElement) {
+      icon.classList.replace('fa-expand', 'fa-compress');
+    } else {
+      icon.classList.replace('fa-compress', 'fa-expand');
+    }
+  });
+</script>
+
+      <script>
          const btn = document.getElementById('fullscreen-btn');
          const icon = btn.querySelector('i');
 
