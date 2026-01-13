@@ -50,7 +50,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         since = timezone.now() - timedelta(days=30)
 
-        context['high_attendance'] = (
+        context['high_attendances'] = (
             Student.objects.filter(center=user)
             .annotate(
                 total=Count('attendance', filter=Q(attendance__time__gte=since)),
@@ -66,7 +66,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             .order_by('-rate')[:10]
         )
 
-        context['low_attendance'] = (
+        context['low_attendances'] = (
             Student.objects.filter(center=user)
             .annotate(
                 total=Count('attendance', filter=Q(attendance__time__gte=since)),
@@ -78,7 +78,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                     default=ExpressionWrapper(F('present') * 100.0 / F('total'), output_field=FloatField()),
                 )
             )
-            .filter(rate__lte=60)
+            .filter(rate__lte=70)
             .order_by('-rate')[:10]
         )
 
