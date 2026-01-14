@@ -93,8 +93,8 @@ class MarkingAttendanceView(LoginRequiredMixin, TemplateView):
         courses = {}
 
         for course in Course.objects.filter(center=self.request.user):
-            print(Attendance.objects.filter(time=timezone.localdate()).exists())
-            if Attendance.objects.filter(course__id=course.id, time=datetime.today()).exists():
+            # print(Attendance.objects.filter(time__date=timezone.localdate()))
+            if Attendance.objects.filter(course__id=course.id, time__date=timezone.localdate()).exists():
                 status = "Marked"
             else:
                 status = "Not Marked"
@@ -119,10 +119,13 @@ def attendance_create(request, course_id):
     if request.method == 'POST':
         students = Student.objects.filter(center=request.user, course__id=course_id)
         for student in students:
-            if request.POST.get(f"status-{student.id}") != None:
-                status = request.POST.get(f"status-{student.id}") == "present"
-                print(status)
-                course = Course.objects.get(id=course_id)
-                attendance = Attendance.objects.create(student=student, time=timezone.now(), course=course,
+            
+            status = request.POST.get(f"status-{student.id}")
+            if status == "present":
+                status = True
+            elif status == None:
+                status = False
+            course = Course.objects.get(id=course_id)
+            attendance = Attendance.objects.create(student=student, time=timezone.now(), course=course,
                                                        status=status, center=request.user, marked_by=request.user)
         return redirect("/mark-attendance/")

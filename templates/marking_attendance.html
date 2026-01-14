@@ -32,7 +32,8 @@
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.teacher }}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{% for day in course.days %} {{ day }}, {% endfor %}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.time }}</td>
-                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ status }}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50"><span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium {% if status == "Not Marked" %}text-red-700 bg-red-200{% else %}text-emerald-700 bg-emerald-100{% endif %} rounded-full">{{ status }}</span></td>
+                           
                         </tr>
                      {% endfor %}
                      </tbody>
