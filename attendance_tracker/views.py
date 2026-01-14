@@ -44,8 +44,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
             line_chart_labels.append(datetime.today().date() - timedelta(days=i))
 
-        context['line_chart_data'] = line_chart_data
-        context['line_chart_labels'] = line_chart_labels
+        context['line_chart_data'] = list(reversed(line_chart_data))
+        context['line_chart_labels'] = list(reversed(line_chart_labels))
         context['recents_attendance_records'] = Attendance.objects.filter(center=user, ).order_by("-time")[:5]
 
         since = timezone.now() - timedelta(days=30)

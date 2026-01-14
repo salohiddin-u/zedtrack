@@ -73,13 +73,13 @@
     </div>
     <!-- Sortable table section -->
     <section class="mt-10 bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-6">
-       <header class="mb-4 flex items-center justify-between">
-          <h2 class="text-lg font-semibold text-slate-800 dark:text-white">Attendance Rate</h2>
-          <span class="text-sm text-slate-500 dark:text-gray-400">Last 30 days</span>
-       </header>
-       <div class="h-72">
-          <canvas id="trafficChart"></canvas>
-       </div>
+  <h3 class="text-lg font-semibold text-gray-900 mb-4">
+    Last 30 Days
+  </h3>
+  <div id="line-chart"></div>
+{{ line_chart_data|json_script:"line-chart-data" }}
+{{ line_chart_labels|json_script:"line-chart-labels" }}
+
     </section>
 <!--            <div class="grid grid-cols-2 gap-4 mb-4">-->
 <!--               <section class="mt-10 bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-6 ">-->
