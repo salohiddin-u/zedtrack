@@ -213,7 +213,7 @@
                   <li>
                      <a
                         href="{% url 'students' %}"
-                        class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg group {% if request.resolver_match.url_name == 'students' %}bg-blue-700/30 dark:text-gray-50{% else %}dark:text-gray-50 hover:bg-zinc-100 dark:hover:bg-zinc-700{%endif%}"
+                        class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg group {% if request.resolver_match.url_name == 'students' or request.resolver_match.url_name == 'create-student' %}bg-blue-700/30 dark:text-gray-50{% else %}dark:text-gray-50 hover:bg-zinc-100 dark:hover:bg-zinc-700{%endif%}"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 768">
                            <path class="dark:fill-gray-50" fill="#1d4ed8" d="M1024 736q0 13-9.5 22.5T992 768t-22.5-9.5T960 736V315L607 492q-40 20-95 20t-95-20L39 303Q0 283 0 255.5T39 209L417 20q40-20 95-20t95 20l378 189q34 17 38 42q1 1 1 4v481zM639 556l193-97v141q0 43-93.5 73.5T512 704t-226.5-30.5T192 600V459l193 97q40 20 127 20t127-20z"/>
@@ -508,6 +508,21 @@
                  formatter: (val) => `${val.toFixed(1)}%`,
                },
              },
+             chart: {
+  type: 'line',
+  height: 350,
+  toolbar: { show: false },
+  foreColor: colors.text,
+
+  zoom: {
+    enabled: false,   // 🚫 disables zoom completely
+  },
+
+  pan: {
+    enabled: false,   // 🚫 disables dragging/panning
+  },
+},
+
            }
          );
          
