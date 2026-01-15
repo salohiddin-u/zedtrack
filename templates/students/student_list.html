@@ -6,14 +6,21 @@ Students
          <main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
             <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
                <!-- Search -->
-               <div class="pb-4">
-                  <input
-                     id="searchInput"
-                     type="text"
-                     placeholder="Search..."
-                     class="w-full md:w-80 p-2 border rounded-lg"
-                     />
-               </div>
+                              <div class="pb-4 flex items-center">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Search..."
+    class="w-full md:w-80 p-2 border rounded-lg"
+  />
+
+  <button
+    type="submit"
+    class="ml-auto text-white bg-blue-600 hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium px-4 py-2.5 rounded-lg"
+  >
+    Add Student
+  </button>
+</div>
                <!-- Table -->
                <div class="overflow-x-auto rounded-lg">
                   <table class="w-full text-sm text-left text-zinc-100">
