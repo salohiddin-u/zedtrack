@@ -22,7 +22,7 @@ class StudentsListView(LoginRequiredMixin, ListView):
 class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     login_url = 'account_login'
-    fields = ['first_name', 'last_name', 'phone_number', 'course', 'gender']
+    fields = ['first_name', 'las33t_name', 'phone_number', 'course', 'gender']
 
     def form_valid(self, form):
         form.instance.center = self.request.user
