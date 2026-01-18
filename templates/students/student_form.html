@@ -2,117 +2,89 @@
 {% block title %}Create Student{% endblock title %}
 {% block content %}
          <main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
-               <form id="addUserForm" method="post" action="{% url 'create-student' %}" class="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-md w-full space-y-6"> {% csrf_token %}
-      <!-- Row 1: Full Name & Email -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            First Name
-          </label>
-          <input type="text" id="full_name" name="full_name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="John" required />
-        </div>
+ <form method="POST"
+      action="{% url 'create_student' %}"
+      class="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-md w-full space-y-6">
+  {% csrf_token %}
 
-        <div>
-          <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            First Name
-          </label>
-          <input type="text" id="full_name" name="full_name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="Doe" required />
-        </div>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Course
-          </label>
-          <select id="role" name="role"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white">
-            <option value="">Select course</option>
-            {% for course in courses %}
-            <option value="student">{{ course.name }}</option>
-            {% endfor %}
-            
-          </select>
-        </div>
+  <!-- Row 1: First & Last Name -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        First Name
+      </label>
+      <input type="text" name="first_name" required
+        class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="John">
+    </div>
 
-        <div>
-          <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Phone Number
-          </label>
-          <input type="text" id="phone_number" name="phone_number"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="+998963438934" required />
-        </div>
-      </div>
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Last Name
+      </label>
+      <input type="text" name="last_name" required
+        class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="Doe">
+    </div>
+  </div>
 
-      <!-- Row 2: Role & Password -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Gender
-          </label>
-          <select id="role" name="role"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white">
-            <option value="">Select gender</option>
-            <option value="student">Male</option>
-            <option value="student">Female</option>
-            
-          </select>
-        </div>
-<div>
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Email
-          </label>
-          <input type="email" id="email" name="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="name@example.com" required />
-        </div>
-        <div>
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Password
-          </label>
-          <input type="password" id="password" name="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="••••••••" required />
-        </div>
-        <div>
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Password
-          </label>
-          <input type="password" id="password" name="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 
-            dark:placeholder-gray-400 dark:text-white"
-            placeholder="••••••••" required />
-        </div>
-      </div>
+  <!-- Row 2: Course & Phone -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Course
+      </label>
+      <select name="course" required
+        class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <option value="">Select course</option>
+        {% for course in courses %}
+          <option value="{{ course.id }}">{{ course.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
 
-      <!-- Row 3: Submit Button -->
-      <div class="pt-4">
-        <button type="submit"
-          class="w-full md:w-auto px-8 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-          focus:ring-blue-300 font-medium rounded-lg text-sm text-center">
-          Add User
-        </button>
-      </div>
-    </form>
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Phone Number
+      </label>
+      <input type="text" name="phone_number" required
+        class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="+998901234567">
+    </div>
+  </div>
+
+  <!-- Row 3: Gender -->
+  <div>
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+      Gender
+    </label>
+    <select name="gender" required
+      class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+             focus:ring-blue-500 focus:border-blue-500
+             dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      <option value="">Select gender</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+  </div>
+
+  <!-- Submit -->
+  <div class="pt-4">
+    <button type="submit"
+      class="px-8 py-3 bg-blue-700 hover:bg-blue-800 text-white rounded-lg
+             focus:ring-4 focus:ring-blue-300 text-sm">
+      Add Student
+    </button>
+  </div>
+</form>
+
          </main>
 {% endblock %}

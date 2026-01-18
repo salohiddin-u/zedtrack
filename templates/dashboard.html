@@ -35,7 +35,7 @@ Dashboard
              </div>
           </div>
           <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod > 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{diffrence_rate}}%</div>
+             <div class="text-sm {% if absent_yest_vs_tod >= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{diffrence_rate}}%</div>
              <div class="text-xs text-slate-400">vs yesterday</div>
           </div>
        </article>
@@ -53,7 +53,7 @@ Dashboard
              </div>
           </div>
           <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod > 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{present_yest_vs_tod}}%</div>
+             <div class="text-sm {% if absent_yest_vs_tod >= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{present_yest_vs_tod}}%</div>
              <div class="text-xs text-slate-400">vs yesterday</div>
           </div>
        </article>
@@ -69,7 +69,7 @@ Dashboard
              </div>
           </div>
           <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod > 0 %}text-red-600{% else %}text-emerald-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{ absent_yest_vs_tod }}%</div>
+             <div class="text-sm {% if absent_yest_vs_tod >= 0 %}text-red-600{% else %}text-emerald-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{ absent_yest_vs_tod }}%</div>
              <div class="text-xs text-slate-400">vs yesterday</div>
           </div>
        </article>

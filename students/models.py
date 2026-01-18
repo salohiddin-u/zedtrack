@@ -13,7 +13,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female')])
     registration_date = models.DateField(auto_now_add=True)
     center = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student_center')
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student_user')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student_user', null=True, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
