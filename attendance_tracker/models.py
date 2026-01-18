@@ -25,3 +25,11 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f"{self.student.first_name} {self.student.last_name} - {self.time} - {self.course} - {self.status}"
+
+class AttendanceRate(models.Model):
+    center = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rate = models.FloatField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.center} - {self.date}"
