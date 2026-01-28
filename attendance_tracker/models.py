@@ -11,9 +11,7 @@ class Attendance(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     status = models.BooleanField(verbose_name='Attendance status', default=False)
-    center = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name="user")
-    marked_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name="Created_by")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 
     class Meta:
         constraints = [
@@ -27,9 +25,9 @@ class Attendance(models.Model):
         return f"{self.student.first_name} {self.student.last_name} - {self.time} - {self.course} - {self.status}"
 
 class AttendanceRate(models.Model):
-    center = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     rate = models.FloatField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.center} - {self.date}"
+        return f"{self.user} - {self.date}"

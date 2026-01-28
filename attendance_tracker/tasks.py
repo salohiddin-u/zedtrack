@@ -6,6 +6,6 @@ from .models import *
 @shared_task
 def create_daily_rate():
     for i in User.objects.all():
-        attendance_rate = (Attendance.objects.filter(center=i, status=True, time__date=now().date()).count() / Student.objects.filter(
-            center=i).count()) * 100 if Student.objects.filter(center=i).count() else 0
-        AttendanceRate.objects.create(center=i, rate=attendance_rate)
+        attendance_rate = (Attendance.objects.filter(user=i, status=True, time__date=now().date()).count() / Student.objects.filter(
+            user=i).count()) * 100 if Student.objects.filter(user=i).count() else 0
+        AttendanceRate.objects.create(user=i, rate=attendance_rate)

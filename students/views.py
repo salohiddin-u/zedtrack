@@ -11,7 +11,7 @@ class StudentsListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        students_list = Student.objects.filter(center=self.request.user)
+        students_list = Student.objects.filter(user=self.request.user)
         students = {}
         for student in students_list:
             attendances = len(Attendance.objects.filter(student=student))
@@ -28,11 +28,11 @@ class StudentCreateView(LoginRequiredMixin, CreateView):
 
 
     def form_valid(self, form):
-        form.instance.center = self.request.user
+        form.instance.user = self.request.user
         print(form)
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['courses'] = Course.objects.filter(center=self.request.user)
+        context['courses'] = Course.objects.filter(user=self.request.user)
         return context

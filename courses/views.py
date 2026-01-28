@@ -9,4 +9,4 @@ class CoursesListView(LoginRequiredMixin, ListView):
     context_object_name = 'courses'
 
     def get_queryset(self):
-        return Course.objects.filter(center=self.request.user)
+        return Course.objects.filter(user=self.request.user)

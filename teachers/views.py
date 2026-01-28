@@ -9,6 +9,6 @@ class TeachersListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["teachers"] = Teacher.objects.filter(center=self.request.user)
+        context["teachers"] = Teacher.objects.filter(user=self.request.user)
 
         return context

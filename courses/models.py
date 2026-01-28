@@ -21,7 +21,7 @@ class Course(models.Model):
     time = models.TimeField()
     days = MultiSelectField(choices=DAYS_OF_WEEK)
     description = models.TextField()
-    center = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
