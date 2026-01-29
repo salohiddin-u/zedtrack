@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Create Course{% endblock title %}
+{% block content %}
+<main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
+   <form method="POST"
+      action="{% url 'create_student' %}"
+      class="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-md w-full space-y-6">
+      {% csrf_token %}
+      <!-- Row 1: First & Last Name -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+         <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            First Name
+            </label>
+            <input type="text" name="first_name" required
+               class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+               placeholder="John">
+         </div>
+         <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Last Name
+            </label>
+            <input type="text" name="last_name" required
+               class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+               placeholder="Doe">
+         </div>
+      </div>
+      <!-- Row 2: Course & Phone -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+         <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Course
+            </label>
+            <select name="course" required
+               class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+               <option value="">Select course</option>
+               {% for course in courses %}
+               <option value="{{ course.id }}">{{ course.name }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Phone Number
+            </label>
+            <input type="text" name="phone_number" required
+               class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+               focus:ring-blue-500 focus:border-blue-500
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+               placeholder="+998901234567">
+         </div>
+      </div>
+      <!-- Row 3: Gender -->
+      <div>
+         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+         Gender
+         </label>
+         <select name="gender" required
+            class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
+            focus:ring-blue-500 focus:border-blue-500
+            dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <option value="">Select gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+         </select>
+      </div>
+      <!-- Submit -->
+      <div class="pt-4">
+         <button type="submit"
+            class="px-8 py-3 bg-blue-700 hover:bg-blue-800 text-white rounded-lg
+            focus:ring-4 focus:ring-blue-300 text-sm">
+         Add Student
+         </button>
+      </div>
+   </form>
+</main>
+{% endblock %}

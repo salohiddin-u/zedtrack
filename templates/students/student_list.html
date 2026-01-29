@@ -3,60 +3,58 @@
 Students
 {% endblock %}
 {% block content %}
-         <main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
-            <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
-               <!-- Search -->
-                              <div class="pb-4 flex items-center">
-  <input
-    id="searchInput"
-    type="text"
-    placeholder="Search..."
-    class="w-full md:w-80 p-2 border rounded-lg"
-  />
-<a
-href="{% url 'create-student' %}"
-  class="ml-auto flex items-center gap-2 text-white bg-blue-600 hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium px-4 py-2.5 rounded-lg"
->
-  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
-    <path fill="white" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/>
-  </svg>
-  <span>Add Student</span>
-</a>
-
-</div>
-               <!-- Table -->
-               <div class="overflow-x-auto rounded-lg">
-                  <table class="w-full text-sm text-left text-zinc-100">
-                     <thead class="bg-blue-700/30 text-xs uppercase">
-                        <tr>
-                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0">Name ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="1">Phone Number ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="2">Course ⬍</th>
-                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="3">Attendance Rate ⬍</th>
-                        </tr>
-                     </thead>
-                     <tbody id="tableBody">
-                        <!-- HTML DATA -->
-
-                     {% for student, attendance_rate in students.items %}
-                        <tr onclick="window.location.href='" class="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700">
-                           <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
-                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ student.phone_number }}</td>
-                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ student.course }}</td>
-                           <td class="px-6 py-4 text-black dark:text-gray-50">{{ attendance_rate | floatformat:2 }}%</td>
-                        </tr>
-                     {% endfor %}
-                     </tbody>
-                  </table>
-               </div>
-               <!-- Pagination -->
-               <div class="flex justify-between items-center p-4 border-t">
-                  <span id="pageInfo" class="text-sm text-gray-600 dark:text-gray-50"></span>
-                  <div class="space-x-2">
-                     <button id="prevBtn" class="px-3 py-1 border rounded dark:text-gray-50">Prev</button>
-                     <button id="nextBtn" class="px-3 py-1 border rounded dark:text-gray-50">Next</button>
-                  </div>
-               </div>
-            </div>
-         </main>
+<main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
+   <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
+      <!-- Search -->
+      <div class="pb-4 flex items-center">
+         <input
+            id="searchInput"
+            type="text"
+            placeholder="Search..."
+            class="w-full md:w-80 p-2 border rounded-lg"
+            />
+         <a
+            href="{% url 'create-student' %}"
+            class="ml-auto flex items-center gap-2 text-white bg-blue-600 hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium px-4 py-2.5 rounded-lg"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+               <path fill="white" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/>
+            </svg>
+            <span>Add Student</span>
+         </a>
+      </div>
+      <!-- Table -->
+      <div class="overflow-x-auto rounded-lg">
+         <table class="w-full text-sm text-left text-zinc-100">
+            <thead class="bg-blue-700/30 text-xs uppercase">
+               <tr>
+                  <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0">Name ⬍</th>
+                  <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="1">Phone Number ⬍</th>
+                  <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="2">Course ⬍</th>
+                  <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="3">Attendance Rate ⬍</th>
+               </tr>
+            </thead>
+            <tbody id="tableBody">
+               <!-- HTML DATA -->
+               {% for student, attendance_rate in students.items %}
+               <tr onclick="window.location.href='" class="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700">
+                  <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
+                  <td class="px-6 py-4 text-black dark:text-gray-50">{{ student.phone_number }}</td>
+                  <td class="px-6 py-4 text-black dark:text-gray-50">{{ student.course }}</td>
+                  <td class="px-6 py-4 text-black dark:text-gray-50">{{ attendance_rate | floatformat:2 }}%</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <!-- Pagination -->
+      <div class="flex justify-between items-center p-4 border-t">
+         <span id="pageInfo" class="text-sm text-gray-600 dark:text-gray-50"></span>
+         <div class="space-x-2">
+            <button id="prevBtn" class="px-3 py-1 border rounded dark:text-gray-50">Prev</button>
+            <button id="nextBtn" class="px-3 py-1 border rounded dark:text-gray-50">Next</button>
+         </div>
+      </div>
+   </div>
+</main>
 {% endblock %}

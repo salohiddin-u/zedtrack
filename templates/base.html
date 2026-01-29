@@ -100,7 +100,7 @@
                      </svg>
                      <span class="sr-only">Toggle sidebar</span>
                   </button>
-                  <a href="dashboard.html" class="flex items-center justify-between mr-4">
+                  <a href="{% url 'dashboard' %}" class="flex items-center justify-between mr-4">
                   <img style="border-radius: 8px;"
                      src="{% static 'logo.png' %}"
                      class="mr-3 h-8"
@@ -509,20 +509,20 @@
                },
              },
              chart: {
-  type: 'line',
-  height: 350,
-  toolbar: { show: false },
-  foreColor: colors.text,
-
-  zoom: {
-    enabled: false,   // 🚫 disables zoom completely
-  },
-
-  pan: {
-    enabled: false,   // 🚫 disables dragging/panning
-  },
-},
-
+         type: 'line',
+         height: 350,
+         toolbar: { show: false },
+         foreColor: colors.text,
+         
+         zoom: {
+         enabled: false,   // 🚫 disables zoom completely
+         },
+         
+         pan: {
+         enabled: false,   // 🚫 disables dragging/panning
+         },
+         },
+         
            }
          );
          
