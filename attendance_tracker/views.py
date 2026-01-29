@@ -6,9 +6,11 @@ from django.views.generic import TemplateView, View, DetailView, CreateView
 from django.db.models import Count, Q, F, FloatField, ExpressionWrapper, Case, When, Value
 from django.utils import timezone
 
-from attendance_tracker.models import Attendance
+from .models import *
 from courses.models import Course
 from students.models import Student
+
+import json
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -38,11 +40,16 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 
         for i in range(30):
-            line_chart_data.append((Attendance.objects.filter(user=user, status=True, time__date=datetime.today() - timedelta(
-                days=i)).count() / Student.objects.filter(user=user).count()) * 100 if Student.objects.filter(
-                user=user).count() else 0)
+            day = (datetime.today() - timedelta(days=i)).date()
 
-            line_chart_labels.append(datetime.today().date() - timedelta(days=i))
+            rate = AttendanceRate.objects.filter(
+                user=self.request.user,
+                date=day
+            ).values_list('rate', flat=True).first() or 0
+            print(rate)
+            line_chart_data.append(rate)
+            line_chart_labels.append(day)
+
 
         context['line_chart_data'] = list(reversed(line_chart_data))
         context['line_chart_labels'] = list(reversed(line_chart_labels))
