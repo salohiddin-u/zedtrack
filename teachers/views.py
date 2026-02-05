@@ -16,7 +16,7 @@ class TeachersListView(LoginRequiredMixin, ListView):
         return context
     
 class TeacherCreateView(LoginRequiredMixin, CreateView):
-    model = Student
+    model = Teacher
     fields = ['first_name', 'last_name', 'phone_number']
     login_url = "account_login"
     success_url = reverse_lazy('teachers')
