@@ -46,7 +46,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 user=self.request.user,
                 date=day
             ).values_list('rate', flat=True).first() or 0
-            print(rate)
             line_chart_data.append(rate)
             line_chart_labels.append(day)
 
