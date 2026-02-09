@@ -273,7 +273,7 @@ async def main():
     src = await client.get_entity(SOURCE_CHAT)
     print(f"📂 Connected to Source: {getattr(src, 'title', src)}")
 
-    env_override = "303"
+    env_override = "339"
     override = None  # e.g. "28"
 
     chosen = None

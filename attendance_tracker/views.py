@@ -133,5 +133,5 @@ def attendance_create(request, course_id):
                 status = False
             course = Course.objects.get(id=course_id)
             attendance = Attendance.objects.create(student=student, time=timezone.now(), course=course,
-                                                       status=status, user=request.user, marked_by=request.user)
+                                                       status=status, user=request.user)
         return redirect("/mark-attendance/")

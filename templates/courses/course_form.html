@@ -3,7 +3,7 @@
 {% block content %}
 <main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
    <form method="POST"
-      action="{% url 'create_student' %}"
+      action="{% url 'create_course' %}"
       class="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-md w-full space-y-6">
       {% csrf_token %}
       <!-- Row 1: First & Last Name -->
@@ -45,29 +45,115 @@
                {% endfor %}
             </select>
          </div>
-         <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Days
-            </label>
-            <input type="text" name="phone_number" required
-               class="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-3
-               focus:ring-blue-500 focus:border-blue-500
-               dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-               placeholder="+998901234567">
-         </div>
+
       </div>
-      <!-- Row 3: Gender -->
       <div>
-         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-         Gender
-         </label>
+         <div>
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Days
+    </label>
+    
+    <div class="flex flex-wrap gap-2">
+        <div>
+            <input type="checkbox" id="mon" name="days" value="Mon" class="peer hidden">
+            <label for="mon"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Mon
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="tue" name="days" value="Tue" class="peer hidden">
+            <label for="tue"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Tue
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="wed" name="days" value="Wed" class="peer hidden">
+            <label for="wed"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Wed
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="thu" name="days" value="Thu" class="peer hidden">
+            <label for="thu"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Thu
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="fri" name="days" value="Fri" class="peer hidden">
+            <label for="fri"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Fri
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="sat" name="days" value="Sat" class="peer hidden">
+            <label for="sat"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Sat
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="sun" name="days" value="Sun" class="peer hidden">
+            <label for="sun"
+                class="px-4 py-2 text-sm font-medium rounded-lg border cursor-pointer
+                text-gray-700 border-gray-300 bg-white
+                peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
+                hover:bg-gray-100 transition-colors
+                dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600
+                dark:hover:bg-gray-600 inline-block">
+                Sun
+            </label>
+        </div>
+    </div>
+</div>
+         
       </div>
       <!-- Submit -->
       <div class="pt-4">
          <button type="submit"
             class="px-8 py-3 bg-blue-700 hover:bg-blue-800 text-white rounded-lg
             focus:ring-4 focus:ring-blue-300 text-sm">
-         Add Student
+         Create
          </button>
       </div>
    </form>
