@@ -436,147 +436,137 @@
          });
       </script>
       <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-      <script>
-         const lineChartData = JSON.parse(
-           document.getElementById('line-chart-data').textContent
-         );
-         const lineChartLabels = JSON.parse(
-           document.getElementById('line-chart-labels').textContent
-         );
-         
-         function getFlowbiteColors() {
-           const isDark = document.documentElement.classList.contains('dark');
-         
-           return isDark
-             ? {
-                 primary: '#1D4ED8', // blue-500
-                 grid: '#374151',    // gray-700
-                 text: '#9CA3AF',    // gray-400
-                 tooltip: 'dark',
-               }
-             : {
-                 primary: '#1D4ED8', // blue-600
-                 grid: '#E5E7EB',    // gray-200
-                 text: '#6B7280',    // gray-500
-                 tooltip: 'light',
-               };
+<script>
+   const lineChartData = JSON.parse(
+     document.getElementById('line-chart-data').textContent
+   );
+   const lineChartLabels = JSON.parse(
+     document.getElementById('line-chart-labels').textContent
+   );
+   
+   function getFlowbiteColors() {
+     const isDark = document.documentElement.classList.contains('dark');
+   
+     return isDark
+       ? {
+           primary: '#1D4ED8', // blue-500
+           grid: '#374151',    // gray-700
+           text: '#9CA3AF',    // gray-400
+           tooltip: 'dark',
          }
-         
-         const colors = getFlowbiteColors();
-         
-         const chart = new ApexCharts(
-           document.querySelector('#line-chart'),
-           {
-             chart: {
-               type: 'line',
-               height: 350,
-               toolbar: { show: false },
-               foreColor: colors.text,
-             },
-             series: [
-               {
-                 name: 'Attendance %',
-                 data: lineChartData,
-               },
-             ],
-             xaxis: {
-             type: 'datetime', 
-             categories: lineChartLabels,
-             labels: {
-                rotate: -45,
-                datetimeUTC: false,
-                format: 'dd MMM',
-                style: {
-                   colors: colors.text,
-                },
-             },
-             },
-         
-             yaxis: {
-               min: 0,
-               max: 100,
-               tickAmount: 5,
-               labels: {
-                 formatter: (val) => `${val}%`,
-                 style: {
-                   colors: colors.text,
-                 },
-               },
-             },
-             stroke: {
-               curve: 'smooth',
-               width: 3,
-             },
-             colors: [colors.primary],
-             grid: {
-               borderColor: colors.grid,
-             },
-             tooltip: {
-               theme: colors.tooltip,
-               y: {
-                 formatter: (val) => `${val.toFixed(1)}%`,
-               },
-             },
-             chart: {
+       : {
+           primary: '#1D4ED8', // blue-600
+           grid: '#E5E7EB',    // gray-200
+           text: '#6B7280',    // gray-500
+           tooltip: 'light',
+         };
+   }
+   
+   const colors = getFlowbiteColors();
+   
+   const chart = new ApexCharts(
+     document.querySelector('#line-chart'),
+     {
+       chart: {
          type: 'line',
          height: 350,
          toolbar: { show: false },
          foreColor: colors.text,
-         
          zoom: {
-         enabled: false,   // 🚫 disables zoom completely
+           enabled: false,
          },
-         
          pan: {
-         enabled: false,   // 🚫 disables dragging/panning
+           enabled: false,
          },
+       },
+       series: [
+         {
+           name: 'Attendance %',
+           data: lineChartData,
          },
-         
-           }
-         );
-         
-         chart.render();
-         
-         const observer = new MutationObserver(() => {
-           const updated = getFlowbiteColors();
-         
-           chart.updateOptions(
-             {
-               chart: {
-                 foreColor: updated.text,
-               },
-               colors: [updated.primary],
-               grid: {
-                 borderColor: updated.grid,
-               },
-               xaxis: {
-                 labels: {
-                   style: {
-                     colors: updated.text,
-                   },
-                 },
-               },
-               yaxis: {
-                 labels: {
-                   style: {
-                     colors: updated.text,
-                   },
-                 },
-               },
-               tooltip: {
-                 theme: updated.tooltip,
-               },
+       ],
+       xaxis: {
+         type: 'datetime', 
+         categories: lineChartLabels,
+         labels: {
+           rotate: -45,
+           datetimeUTC: false,
+           format: 'dd MMM',
+           style: {
+             colors: colors.text,
+           },
+         },
+       },
+       yaxis: {
+         min: 0,
+         max: 100,
+         tickAmount: 5,
+         labels: {
+           formatter: (val) => `${val}%`,
+           style: {
+             colors: colors.text,
+           },
+         },
+       },
+       stroke: {
+         curve: 'smooth',
+         width: 3,
+       },
+       colors: [colors.primary],
+       grid: {
+         borderColor: colors.grid,
+       },
+       tooltip: {
+         theme: colors.tooltip,
+         y: {
+           formatter: (val) => `${val.toFixed(1)}%`,
+         },
+       },
+     }
+   );
+   
+   chart.render();
+   
+   const observer = new MutationObserver(() => {
+     const updated = getFlowbiteColors();
+   
+     chart.updateOptions(
+       {
+         chart: {
+           foreColor: updated.text,
+         },
+         colors: [updated.primary],
+         grid: {
+           borderColor: updated.grid,
+         },
+         xaxis: {
+           labels: {
+             style: {
+               colors: updated.text,
              },
-             false,
-             true
-           );
-         });
-         
-         observer.observe(document.documentElement, {
-           attributes: true,
-           attributeFilter: ['class'],
-         });
-      </script>
+           },
+         },
+         yaxis: {
+           labels: {
+             style: {
+               colors: updated.text,
+             },
+           },
+         },
+         tooltip: {
+           theme: updated.tooltip,
+         },
+       },
+       false,
+       true
+     );
+   });
+   
+   observer.observe(document.documentElement, {
+     attributes: true,
+     attributeFilter: ['class'],
+   });
+</script>
       <script>
          const btn = document.getElementById('fullscreen-btn');
          const icon = btn.querySelector('i');

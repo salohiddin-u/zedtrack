@@ -38,9 +38,12 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         line_chart_labels = []
         line_chart_data = []
 
-
-        for i in range(30):
-            day = (datetime.today() - timedelta(days=i)).date()
+        line_chart_data.append((Attendance.objects.filter(user=self.request.user, status=True, time__date=datetime.today().date()).count() / 
+                               Student.objects.filter(user=self.request.user).count()
+                               ) * 100 if Student.objects.filter(user=self.request.user).count() else 0)
+        line_chart_labels.append(datetime.today().date())
+        for i in range(29):
+            day = ((datetime.today() - timedelta(days=1)) - timedelta(days=i)).date()
 
             rate = AttendanceRate.objects.filter(
                 user=self.request.user,
@@ -48,10 +51,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             ).values_list('rate', flat=True).first() or 0
             line_chart_data.append(rate)
             line_chart_labels.append(day)
+        
 
 
         context['line_chart_data'] = list(reversed(line_chart_data))
         context['line_chart_labels'] = list(reversed(line_chart_labels))
+        print(list(reversed(line_chart_data)))
+        print(list(reversed(line_chart_labels)))
         context['recents_attendance_records'] = Attendance.objects.filter(user=user, ).order_by("-time")[:5]
 
         since = timezone.now() - timedelta(days=30)
@@ -134,4 +140,4 @@ def attendance_create(request, course_id):
             course = Course.objects.get(id=course_id)
             attendance = Attendance.objects.create(student=student, time=timezone.now(), course=course,
                                                        status=status, user=request.user)
-        return redirect("/mark-attendance/")
+        return redirect("/mark-attendance/") 
