@@ -75,7 +75,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 )
             )
             .filter(rate__gte=70)
-            .order_by('-rate')[:10]
+            .order_by('-rate')[:7]
         )
 
         context['low_attendances'] = (

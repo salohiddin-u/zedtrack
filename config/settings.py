@@ -108,7 +108,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # or "email"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 
 ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
@@ -121,7 +121,7 @@ EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "saloh.usmonali@gmail.com"
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = "usmonaliyev_s@icloud.com"
+DEFAULT_FROM_EMAIL = "saloh.usmonali@gmail.com"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
