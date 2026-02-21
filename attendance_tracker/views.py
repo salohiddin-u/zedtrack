@@ -124,6 +124,13 @@ class MarkAttendanceView(LoginRequiredMixin, TemplateView):
 
         context['students'] = Student.objects.filter(user=self.request.user, course__id=course_id)
         context['course_id'] = course_id
+        status = False
+        attendances = Attendance.objects.filter(user=self.request.user, time__date=datetime.today().date(), course__id=course_id)
+        if attendances.exists():
+            status = True
+            context["attendances"] = attendances
+        print(attendances)
+        context["status"] = status
 
         return context
 
