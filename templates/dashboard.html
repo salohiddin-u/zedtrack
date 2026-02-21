@@ -3,250 +3,257 @@
 Dashboard
 {% endblock %}
 {% block content %}
- <main class="p-4 md:ml-64 h-auto pt-20">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-       <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-             <div class="flex-none bg-blue-700 w-14 h-14 rounded-lg  text-white flex items-center justify-center">
-                <!-- User icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 1024 768">
-                   <path fill="currentColor" d="M1024 736q0 13-9.5 22.5T992 768t-22.5-9.5T960 736V315L607 492q-40 20-95 20t-95-20L39 303Q0 283 0 255.5T39 209L417 20q40-20 95-20t95 20l378 189q34 17 38 42q1 1 1 4v481zM639 556l193-97v141q0 43-93.5 73.5T512 704t-226.5-30.5T192 600V459l193 97q40 20 127 20t127-20z"/>
-                </svg>
-             </div>
-             <div> 
-                <div class="text-2xl dark:text-white font-medium">{{ students.count }}</div>
-                <div class="text-sm text-slate-500 dark:text-white">Total Students</div>
-             </div>
-          </div>
-          <div class="text-right">
-             <div class="text-sm text-emerald-600 font-medium "></div>
-             <div class="text-xs text-slate-400"></div>
-          </div>
-       </article>
-       <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-             <div class="flex-none w-14 h-14 rounded-lg bg-blue-700  text-white flex items-center justify-center">
-                <!-- User icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 1.25C6.063 1.25 1.25 6.063 1.25 12S6.063 22.75 12 22.75S22.75 17.937 22.75 12S17.937 1.25 12 1.25Zm3.5 13a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5ZM7.25 8.5a1.25 1.25 0 1 1 2.5 0a1.25 1.25 0 0 1-2.5 0Zm8.22-1.03a.75.75 0 1 1 1.06 1.06l-8 8a.75.75 0 0 1-1.06-1.06l8-8Z" clip-rule="evenodd"/></svg>
-             </div>
-             <div>
-                <div class="text-2xl font-medium dark:text-white">{{ attendance_rate }}%</div>
-                <div class="text-sm text-slate-500 dark:text-white">Attendance Rate</div>
-             </div>
-          </div>
-          <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{diffrence_rate}}%</div>
-             <div class="text-xs text-slate-400">vs yesterday</div>
-          </div>
-       </article>
-       <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-             <div class="flex-none w-14 h-14 rounded-lg bg-blue-700 text-white flex items-center justify-center">
-                <!-- User icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
-                   <path fill="currentColor" d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1s11 4.925 11 11M9.305 18.11l9.402-9.403l-1.414-1.414l-7.883 7.883l-2.476-3.01l-1.511 1.31l3.882 4.633z"/>
-                </svg>
-             </div>
-             <div>
-                <div class="text-2xl font-medium dark:text-white">{{ present_today }}</div>
-                <div class="text-sm text-slate-500 dark:text-white">Present Today</div>
-             </div>
-          </div>
-          <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{present_yest_vs_tod}}%</div>
-             <div class="text-xs text-slate-400">vs yesterday</div>
-          </div>
-       </article>
-       <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-             <div class="flex-none w-14 h-14 rounded-lg bg-blue-700 text-white flex items-center justify-center">
-                <!-- User icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 16 16"><path fill="currentColor" d="M2.343 13.657A8 8 0 1 1 13.658 2.343A8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018a.751.751 0 0 0-.018 1.042L6.94 8L4.97 9.97a.749.749 0 0 0 .326 1.275a.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326a.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275a.749.749 0 0 0-.734.215L8 6.94Z"/></svg>
-             </div>
-             <div>
-                <div class="text-2xl font-medium dark:text-white">{{ absent_today }}</div>
-                <div class="text-sm text-slate-500 dark:text-white">Absent Today</div>
-             </div>
-          </div>
-          <div class="text-right">
-             <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-red-600{% else %}text-emerald-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{ absent_yest_vs_tod }}%</div>
-             <div class="text-xs text-slate-400">vs yesterday</div>
-          </div>
-       </article>
-    </div>
-    <!-- Sortable table section -->
-    <section class="mt-10 bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-6">
-  <h3 class="text-lg font-semibold text-gray-900 mb-4 dark:text-white">
-    Last 30 Days
-  </h3>
-  <div id="line-chart"></div>
-{{ line_chart_data|json_script:"line-chart-data" }}
-{{ line_chart_labels|json_script:"line-chart-labels" }}
-
-    </section>
-    <section class="mt-10 bg-white rounded-xl shadow-sm">
-       <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
-          <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">Recent Records</h2>
-       </header>
-       <div class="overflow-x-auto dark:bg-zinc-800 dark:rounded-b-xl">
-          <table id="sortableTable" class="min-w-full text-sm text-left text-slate-600">
-             <thead class="text-xs uppercase bg-slate-50 text-slate-500">
-                <tr class="dark:bg-zinc-800">
-                   <th scope="col" class="px-6 py-3 cursor-pointer group " data-sort="string">
-                      <div class="flex items-center gap-1">
-                         Name
-                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                         </svg>
-                      </div>
-                   </th>
-                   <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
-                      <div class="flex items-center gap-1">
-                         Time
-                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                         </svg>
-                      </div>
-                   </th>
-
-                   <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="string">
-                      <div class="flex items-center gap-1">
-                         Course
-                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                         </svg>
-                      </div>
-                   </th>
-                    <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
-                      <div class="flex items-center gap-1">
-                         Phone Number
-                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                         </svg>
-                      </div>
-                   </th>
-                   <th scope="col" class="px-6 py-3 text-right">Status</th>
-                </tr>
-             </thead>
-             <tbody class="divide-y divide-slate-100">
-                {% for r in recents_attendance_records %}
-                    <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                   <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ r.student.first_name }} {{ r.student.last_name }}</td>
-                   <td class="px-6 py-4 dark:text-slate-50">{{ r.time }}</td>
-                   <td class="px-6 py-4 dark:text-slate-50">{{ r.student.course }}</td>
-                   <td class="px-6 py-4 dark:text-slate-50">{{ r.student.phone_number }}</td>
-                   {% if r.status %}
-                        <td class="px-6 py-4 text-right">
-                      <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Present</span>
-                   </td>
-                    {% else %}
-                        <td class="px-6 py-4 text-right">
-                      <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-red-700 bg-red-200 rounded-full">Absent</span>
-                   </td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-             </tbody>
-          </table>
-       </div>
-    </section>
-    <div class="grid grid-cols-2 gap-4">
-       <section class="mt-10 bg-white rounded-xl shadow-sm">
-          <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
-             <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">High Attendance</h2>
-          </header>
-          <div class="overflow-x-auto overflow-y-auto h-[400px] dark:bg-zinc-800 dark:rounded-b-xl">
-    <table id="sortableTable1" class="min-w-full text-sm text-left text-slate-600">
-<thead class="text-xs uppercase bg-slate-50 text-slate-500 dark:bg-zinc-800">
-   <tr class="dark:bg-zinc-800">
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
-         <div class="flex items-center gap-1">Name 
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+<main class="p-4 md:ml-64 h-auto pt-20">
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
+         <div class="flex items-center gap-4">
+            <div class="flex-none bg-blue-700 w-14 h-14 rounded-lg  text-white flex items-center justify-center">
+               <!-- User icon -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 1024 768">
+                  <path fill="currentColor" d="M1024 736q0 13-9.5 22.5T992 768t-22.5-9.5T960 736V315L607 492q-40 20-95 20t-95-20L39 303Q0 283 0 255.5T39 209L417 20q40-20 95-20t95 20l378 189q34 17 38 42q1 1 1 4v481zM639 556l193-97v141q0 43-93.5 73.5T512 704t-226.5-30.5T192 600V459l193 97q40 20 127 20t127-20z"/>
+               </svg>
+            </div>
+            <div>
+               <div class="text-2xl dark:text-white font-medium">{{ students.count }}</div>
+               <div class="text-sm text-slate-500 dark:text-white">Total Students</div>
+            </div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="number">
-         <div class="flex items-center gap-1">Attendance Rate 
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+         <div class="text-right">
+            <div class="text-sm text-emerald-600 font-medium "></div>
+            <div class="text-xs text-slate-400"></div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
-         <div class="flex items-center gap-1">Course 
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+      </article>
+      <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
+         <div class="flex items-center gap-4">
+            <div class="flex-none w-14 h-14 rounded-lg bg-blue-700  text-white flex items-center justify-center">
+               <!-- User icon -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+                  <path fill="currentColor" fill-rule="evenodd" d="M12 1.25C6.063 1.25 1.25 6.063 1.25 12S6.063 22.75 12 22.75S22.75 17.937 22.75 12S17.937 1.25 12 1.25Zm3.5 13a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5ZM7.25 8.5a1.25 1.25 0 1 1 2.5 0a1.25 1.25 0 0 1-2.5 0Zm8.22-1.03a.75.75 0 1 1 1.06 1.06l-8 8a.75.75 0 0 1-1.06-1.06l8-8Z" clip-rule="evenodd"/>
+               </svg>
+            </div>
+            <div>
+               <div class="text-2xl font-medium dark:text-white">{{ attendance_rate }}%</div>
+               <div class="text-sm text-slate-500 dark:text-white">Attendance Rate</div>
+            </div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 text-right">
-         Phone Number
-      </th>
-   </tr>
-</thead>
-                <tbody class="divide-y divide-slate-100">
-                   {% for student in high_attendances %}
-                   <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                      <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ student.first_name }} {{ student.last_name }}</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.rate | floatformat:2 }}%</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.course }}</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.phone_number }}</td>
-                   </tr>
-                    {% endfor %}
-                </tbody>
-             </table>
-          </div>
-       </section>
-       <section class="mt-10 bg-white rounded-xl shadow-sm">
-          <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
-             <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">Low Attendance</h2>
-          </header>
-          <div class="overflow-x-auto overflow-y-auto h-[400px] dark:bg-zinc-800 dark:rounded-b-xl">
-    <table id="sortableTable1" class="min-w-full text-sm text-left text-slate-600">
-                <thead class="text-xs uppercase bg-slate-50 text-slate-500 dark:bg-zinc-800">
-   <tr class="dark:bg-zinc-800">
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
-         <div class="flex items-center gap-1">Name
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+         <div class="text-right">
+            <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{diffrence_rate}}%</div>
+            <div class="text-xs text-slate-400">vs yesterday</div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="number">
-         <div class="flex items-center gap-1">Attendance Rate
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+      </article>
+      <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
+         <div class="flex items-center gap-4">
+            <div class="flex-none w-14 h-14 rounded-lg bg-blue-700 text-white flex items-center justify-center">
+               <!-- User icon -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1s11 4.925 11 11M9.305 18.11l9.402-9.403l-1.414-1.414l-7.883 7.883l-2.476-3.01l-1.511 1.31l3.882 4.633z"/>
+               </svg>
+            </div>
+            <div>
+               <div class="text-2xl font-medium dark:text-white">{{ present_today }}</div>
+               <div class="text-sm text-slate-500 dark:text-white">Present Today</div>
+            </div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
-         <div class="flex items-center gap-1">Course
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                            </svg>
+         <div class="text-right">
+            <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-emerald-600{% else %}text-red-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{present_yest_vs_tod}}%</div>
+            <div class="text-xs text-slate-400">vs yesterday</div>
          </div>
-      </th>
-      <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 text-right">
-         Phone Number
-         
-      </th>
-   </tr>
-</thead>
-                <tbody class="divide-y divide-slate-100">
-                   {% for student in low_attendances %}
-                   <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
-                      <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ student.first_name }} {{ student.last_name }}</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.rate | floatformat:2}}%</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.course }}</td>
-                      <td class="px-6 py-4 dark:text-slate-50">{{ student.phone_number }}</td>
-                   </tr>
-                    {% endfor %}
-                </tbody>
-             </table>
-          </div>
-       </section>
-       <br>
-    </div>
- </main>
+      </article>
+      <article class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
+         <div class="flex items-center gap-4">
+            <div class="flex-none w-14 h-14 rounded-lg bg-blue-700 text-white flex items-center justify-center">
+               <!-- User icon -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 16 16">
+                  <path fill="currentColor" d="M2.343 13.657A8 8 0 1 1 13.658 2.343A8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018a.751.751 0 0 0-.018 1.042L6.94 8L4.97 9.97a.749.749 0 0 0 .326 1.275a.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326a.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275a.749.749 0 0 0-.734.215L8 6.94Z"/>
+               </svg>
+            </div>
+            <div>
+               <div class="text-2xl font-medium dark:text-white">{{ absent_today }}</div>
+               <div class="text-sm text-slate-500 dark:text-white">Absent Today</div>
+            </div>
+         </div>
+         <div class="text-right">
+            <div class="text-sm {% if absent_yest_vs_tod <= 0 %}text-red-600{% else %}text-emerald-600{% endif %} font-medium">{% if absent_yest_vs_tod > 0 %}+{% endif %}{{ absent_yest_vs_tod }}%</div>
+            <div class="text-xs text-slate-400">vs yesterday</div>
+         </div>
+      </article>
+   </div>
+   <!-- Sortable table section -->
+   <section class="mt-10 bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4 dark:text-white">
+         Last 30 Days
+      </h3>
+      <div id="line-chart"></div>
+      {{ line_chart_data|json_script:"line-chart-data" }}
+      {{ line_chart_labels|json_script:"line-chart-labels" }}
+   </section>
+   <section class="mt-10 bg-white rounded-xl shadow-sm">
+      <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
+         <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">Recent Records</h2>
+      </header>
+      <div class="overflow-x-auto dark:bg-zinc-800 dark:rounded-b-xl">
+         <table id="sortableTable" class="min-w-full text-sm text-left text-slate-600">
+            <thead class="text-xs uppercase bg-slate-50 text-slate-500">
+               <tr class="dark:bg-zinc-800">
+                  <th scope="col" class="px-6 py-3 cursor-pointer group " data-sort="string">
+                     <div class="flex items-center gap-1">
+                        Name
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                        </svg>
+                     </div>
+                  </th>
+                  <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
+                     <div class="flex items-center gap-1">
+                        Time
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                        </svg>
+                     </div>
+                  </th>
+                  <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="string">
+                     <div class="flex items-center gap-1">
+                        Course
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                        </svg>
+                     </div>
+                  </th>
+                  <th scope="col" class="px-6 py-3 cursor-pointer group" data-sort="number">
+                     <div class="flex items-center gap-1">
+                        Phone Number
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                        </svg>
+                     </div>
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-right">Status</th>
+               </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+               {% for r in recents_attendance_records %}
+               <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
+                  <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ r.student.first_name }} {{ r.student.last_name }}</td>
+                  <td class="px-6 py-4 dark:text-slate-50">{{ r.time }}</td>
+                  <td class="px-6 py-4 dark:text-slate-50">{{ r.student.course }}</td>
+                  <td class="px-6 py-4 dark:text-slate-50">{{ r.student.phone_number }}</td>
+                  {% if r.status %}
+                  <td class="px-6 py-4 text-right">
+                     <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 rounded-full">Present</span>
+                  </td>
+                  {% else %}
+                  <td class="px-6 py-4 text-right">
+                     <span class="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-red-700 bg-red-200 rounded-full">Absent</span>
+                  </td>
+                  {% endif %}
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </section>
+   <div class="grid grid-cols-2 gap-4">
+      <section class="mt-10 bg-white rounded-xl shadow-sm">
+         <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
+            <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">High Attendance</h2>
+         </header>
+         <div class="overflow-x-auto overflow-y-auto h-[400px] dark:bg-zinc-800 dark:rounded-b-xl">
+            <table id="sortableTable1" class="min-w-full text-sm text-left text-slate-600">
+               <thead class="text-xs uppercase bg-slate-50 text-slate-500 dark:bg-zinc-800">
+                  <tr class="dark:bg-zinc-800">
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
+                        <div class="flex items-center gap-1">
+                           Name 
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="number">
+                        <div class="flex items-center gap-1">
+                           Attendance Rate 
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
+                        <div class="flex items-center gap-1">
+                           Course 
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 text-right">
+                        Phone Number
+                     </th>
+                  </tr>
+               </thead>
+               <tbody class="divide-y divide-slate-100">
+                  {% for student in high_attendances %}
+                  <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
+                     <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ student.first_name }} {{ student.last_name }}</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.rate | floatformat:2 }}%</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.course }}</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.phone_number }}</td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </section>
+      <section class="mt-10 bg-white rounded-xl shadow-sm">
+         <header class="p-4 border-b border-slate-100 dark:bg-zinc-800 dark:rounded-t-xl">
+            <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-50">Low Attendance</h2>
+         </header>
+         <div class="overflow-x-auto overflow-y-auto h-[400px] dark:bg-zinc-800 dark:rounded-b-xl">
+            <table id="sortableTable1" class="min-w-full text-sm text-left text-slate-600">
+               <thead class="text-xs uppercase bg-slate-50 text-slate-500 dark:bg-zinc-800">
+                  <tr class="dark:bg-zinc-800">
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
+                        <div class="flex items-center gap-1">
+                           Name
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="number">
+                        <div class="flex items-center gap-1">
+                           Attendance Rate
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 cursor-pointer group" data-sort="string">
+                        <div class="flex items-center gap-1">
+                           Course
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 opacity-0 group-hover:opacity-60 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                           </svg>
+                        </div>
+                     </th>
+                     <th scope="col" class="sticky top-0 z-10 bg-slate-50 dark:bg-zinc-800 px-6 py-3 text-right">
+                        Phone Number
+                     </th>
+                  </tr>
+               </thead>
+               <tbody class="divide-y divide-slate-100">
+                  {% for student in low_attendances %}
+                  <tr class="hover:bg-slate-50 dark:hover:bg-gray-700">
+                     <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-50">{{ student.first_name }} {{ student.last_name }}</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.rate | floatformat:2}}%</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.course }}</td>
+                     <td class="px-6 py-4 dark:text-slate-50">{{ student.phone_number }}</td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </section>
+      <br>
+   </div>
+</main>
 {% endblock %}
