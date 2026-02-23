@@ -31,21 +31,28 @@ Marking Attendance
                         <tbody id="tableBody">
                            <!-- HTML DATA -->
                            {% for student in students %}
-                           <tr onclick="toggleCheckbox(event, this)" class="cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                              <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
-                              <td class="px-6 py-4 font-bold"></td>
-                              <td class="px-6 py-4">
-                                 <div class="flex items-center">
-                                    <input
-                                       id="checkbox-{{ student.id }}"
-                                       name="status-{{ student.id }}"
-                                       type="checkbox"
-                                       value="present"
-                                       class="attendance-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-{{ student.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Present</label>
-                                 </div>
-                              </td>
-                           </tr>
+                           <tr {% if not status %}onclick="toggleCheckbox(event, this)"{% endif %}
+    class="{% if status %}cursor-not-allowed{% else %}cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700{% endif %}">
+    
+    <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ student.first_name }} {{ student.last_name }}</td>
+    <td class="px-6 py-4 font-bold"></td>
+    <td class="px-6 py-4">
+        <div class="flex items-center">
+            <input
+                id="checkbox-{{ student.id }}"
+                name="status-{{ student.id }}"
+                type="checkbox"
+                value="present"
+                {# Simplified Logic Below #}
+                {% if status %}disabled{% endif %}
+                {% for attendance in attendances %}
+                    {% if attendance.student_id == student.id and attendance.status %}checked{% endif %}
+                {% endfor %}
+                class="disabled:cursor-not-allowed attendance-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="checkbox-{{ student.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Present</label>
+        </div>
+    </td>
+</tr>
                            {% endfor %}
                         </tbody>
                      </table>
@@ -67,15 +74,27 @@ Marking Attendance
                      Selected: 0 students
                   </span>
 
+                  {% if status == False %}
                   <button
                      type="submit"
                      form="attendanceForm"
                      id="submitAttendance"
-                     disabled
-                     class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium px-5 py-2 rounded-lg transition duration-300"
+                     class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition duration-300"
                      >
                      Submit Attendance
                   </button>
+                  {% else %}
+                  <button
+                     type="submit"
+                     form="attendanceForm"
+                     id="submitAttendance"
+                     title="Already submited"
+                     disabled 
+                     class="bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition duration-300"
+                     >
+                     Submit Attendance
+                  </button>
+                  {% endif %}
                </div>
 
             </div>

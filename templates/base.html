@@ -301,83 +301,115 @@
          {% endblock %}
       </div>
       <script>
-         const allRows = Array.from(document.querySelectorAll("#tableBody tr"));
-         const searchInput = document.getElementById("searchInput");
-         const rowsPerPage = 10;
-         
-         let currentPage = 1;
-         let sortDir = true;
-         
-         function render() {
-           const query = searchInput.value.toLowerCase();
-           const filtered = allRows.filter(row =>
-             row.innerText.toLowerCase().includes(query)
-           );
-         
-           const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
-           currentPage = Math.min(currentPage, totalPages);
-         
-           const start = (currentPage - 1) * rowsPerPage;
-           const pageRows = filtered.slice(start, start + rowsPerPage);
-         
-           const tbody = document.getElementById("tableBody");
-           tbody.innerHTML = "";
-         
-           // Render real rows
-           pageRows.forEach(row => tbody.appendChild(row));
-         
-           // 🔑 Fill empty rows to keep height constant
-           for (let i = pageRows.length; i < rowsPerPage; i++) {
-             const emptyRow = document.createElement("tr");
-             emptyRow.innerHTML = `
-               <td class="px-6 py-4">&nbsp;</td>
-               <td class="px-6 py-4"></td>
-               <td class="px-6 py-4"></td>
-             `;
-             tbody.appendChild(emptyRow);
-           }
-         
-           document.getElementById("pageInfo").textContent =
-             `Page ${currentPage} of ${totalPages}`;
-         
-           // Update selection info after re-render (safe)
-           updateSelection();
-         }
-         
-         searchInput.addEventListener("input", () => {
-           currentPage = 1;
-           render();
-         });
-         
-         document.querySelectorAll("th[data-column]").forEach(th => {
-           th.addEventListener("click", () => {
-             const col = th.dataset.column;
-             allRows.sort((a, b) => {
-               const A = a.children[col].innerText;
-               const B = b.children[col].innerText;
-               return sortDir
-                 ? A.localeCompare(B, undefined, { numeric: true })
-                 : B.localeCompare(A, undefined, { numeric: true });
-             });
-             sortDir = !sortDir;
-             render();
-           });
-         });
-         
-         document.getElementById("prevBtn").onclick = (e) => {
-           e.preventDefault();
-           if (currentPage > 1) currentPage--;
-           render();
-         };
-         
-         document.getElementById("nextBtn").onclick = (e) => {
-           e.preventDefault();
-           currentPage++;
-           render();
-         };
-         
-         render();
-      </script>
+    const allRows = Array.from(document.querySelectorAll("#tableBody tr"));
+    const searchInput = document.getElementById("searchInput");
+    let rowsPerPage = 10; 
+    let currentPage = 1;
+    let sortDir = true;
+
+    function calculateRowsPerPage() {
+        const windowHeight = window.innerHeight;
+        
+        // --- TUNING SECTION ---
+        // 220 is a better estimate for your Nav + Search + Table Header based on the image.
+        // 52 is a standard height for a Tailwind 'py-4' row.
+        const headerOffset = 260; 
+        const rowHeight = 52; 
+
+        const availableSpace = windowHeight - headerOffset;
+        
+        // Calculate rows; ensure at least 5 rows even on tiny screens
+        const calculated = Math.floor(availableSpace / rowHeight);
+        rowsPerPage = Math.max(5, calculated);
+    }
+
+    function render() {
+        const query = searchInput.value.toLowerCase();
+        const filtered = allRows.filter(row =>
+            row.innerText.toLowerCase().includes(query)
+        );
+
+        const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const pageRows = filtered.slice(start, start + rowsPerPage);
+
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+
+        // Render real rows
+        pageRows.forEach(row => tbody.appendChild(row));
+
+        // Fill empty rows (Updated to 4 columns to match your screenshot)
+        for (let i = pageRows.length; i < rowsPerPage; i++) {
+            const emptyRow = document.createElement("tr");
+            emptyRow.innerHTML = `
+                <td class="px-6 py-4">&nbsp;</td>
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4"></td>
+            `;
+            tbody.appendChild(emptyRow);
+        }
+
+        document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${totalPages}`;
+
+        if (typeof updateSelection === "function") updateSelection();
+    }
+
+    // Resize Listener
+    window.addEventListener("resize", () => {
+        calculateRowsPerPage();
+        render();
+    });
+
+    searchInput.addEventListener("input", () => {
+        currentPage = 1;
+        render();
+    });
+
+    // Sorting Logic
+    document.querySelectorAll("th[data-column]").forEach(th => {
+        th.addEventListener("click", () => {
+            const col = th.dataset.column;
+            allRows.sort((a, b) => {
+                const A = a.children[col].innerText;
+                const B = b.children[col].innerText;
+                return sortDir
+                    ? A.localeCompare(B, undefined, { numeric: true })
+                    : B.localeCompare(A, undefined, { numeric: true });
+            });
+            sortDir = !sortDir;
+            render();
+        });
+    });
+
+    // Pagination buttons
+    document.getElementById("prevBtn").onclick = (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            render();
+        }
+    };
+
+    document.getElementById("nextBtn").onclick = (e) => {
+        e.preventDefault();
+        const query = searchInput.value.toLowerCase();
+        const filteredCount = allRows.filter(row => row.innerText.toLowerCase().includes(query)).length;
+        const totalPages = Math.ceil(filteredCount / rowsPerPage);
+        
+        if (currentPage < totalPages) {
+            currentPage++;
+            render();
+        }
+    };
+
+    // Initial Trigger
+    calculateRowsPerPage();
+    render();
+</script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
       <script>
          tailwind = window.tailwind || {};
@@ -588,7 +620,6 @@
          function updateSelection() {
            const checked = document.querySelectorAll('.attendance-checkbox:checked').length;
            if (selectedCountEl) selectedCountEl.textContent = `Selected: ${checked} students`;
-           if (submitBtn) submitBtn.disabled = checked === 0;
          }
          
          // Update when user directly checks/unchecks

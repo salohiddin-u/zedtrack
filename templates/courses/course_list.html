@@ -3,8 +3,8 @@
 Courses
 {% endblock %}
 {% block content %}
-         <main class="p-4 md:ml-64 pt-20 min-h-screen font-sans">
-            <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
+<main class="p-2 md:ml-64 pt-16 min-h-screen font-sans">
+   <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
                <!-- Search -->
                <div class="pb-4 flex items-center">
   <input
@@ -33,6 +33,7 @@ Courses
                         <tr>
                            <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0">Name ⬍</th>
                            <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="1">Teacher ⬍</th>
+                           <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="3"></th>
                            <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="2">Students ⬍</th>
                         </tr>
                      </thead>
@@ -43,6 +44,7 @@ Courses
                         <tr onclick="window.location.href='" class="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700">
                            <td class="px-6 py-4 font-bold text-black dark:text-gray-50">{{ course.name }}</td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ course.teacher }}</td>
+                           <td class="px-6 py-4 text-black dark:text-gray-50"></td>
                            <td class="px-6 py-4 text-black dark:text-gray-50">{{ students }}</td>
                         </tr>
                      {% endfor %}
