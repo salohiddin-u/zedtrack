@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'students',
     'teachers',
     'courses',
-    'attendance_tracker',
+    'mark_attendance',
     'accounts',
 
     'django.contrib.sites',
