@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import *
 
 from .models import Student
-from attendance_tracker.models import *
+from mark_attendance.models import *
 
 class StudentsListView(LoginRequiredMixin, ListView):
     model = Student
