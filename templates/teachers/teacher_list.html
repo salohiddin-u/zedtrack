@@ -3,7 +3,7 @@
 Teachers
 {% endblock %}
 {% block content %}
-<main class="p-2 md:ml-64 pt-16 min-h-screen font-sans">
+<main class="p-4 md:ml-64 h-auto pt-20 min-h-screen font-sans">
    <div class="bg-white dark:bg-zinc-800 shadow rounded-lg p-6 flex flex-col min-h-[90vh]">
       <!-- Search -->
       <div class="pb-4 flex items-center">
@@ -32,6 +32,8 @@ Teachers
                   <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0"> </th>
                   <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0"> </th>
                   <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="1">Phone Number ⬍</th>
+                  <th class="px-6 py-3 cursor-pointer text-black select-none dark:text-white" data-column="0"> </th>
+                  
                </tr>
             </thead>
             <tbody id="tableBody">
@@ -42,6 +44,8 @@ Teachers
                   <td class="px-6 py-4 text-black dark:text-gray-50"> </td>
                   <td class="px-6 py-4 text-black dark:text-gray-50"> </td>
                   <td class="px-6 py-4 text-black dark:text-gray-50">{{ teacher.phone_number }}</td>
+                  <td class="px-6 py-4 text-black dark:text-gray-50"> </td>
+                  
                </tr>
                {% endfor %}
             </tbody>
