@@ -160,13 +160,33 @@ class HistoryView(LoginRequiredMixin, TemplateView):
         context['teachers'] = Teacher.objects.filter(user=self.request.user)
         context["attendances"] = Attendance.objects.filter(user=self.request.user)
 
-        start_date = self.kwargs.get('start_date')
-        end_date = self.kwargs.get('end_date')
-        course = self.kwargs.get('course')
-        teacher = self.kwargs.get('teacher')
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+        course = self.request.GET.get('course')
+        teacher = self.request.GET.get('teacher')
+
+        queryset = Attendance.objects.all()
 
         if start_date and end_date:
-            context['attendances'] = Attendance.objects.filter(time__date__range=(start_date, end_date))
+            if start_date>end_date:
+                context['error_message'] = "Start date cannot be after end date."
+            context['attendances'] = queryset.filter(time__date__range=(start_date, end_date))
+            context['start_date'] = start_date
+            context['end_date'] = end_date
+        elif start_date or end_date:
+            context["error_message"] = "Provide both start date and end date."
+        if course:
+            if course and teacher and Teacher.objects.get(id=teacher).id != Course.objects.get(id=course).teacher_id:
+                context["error_message"] = "Teacher mismatch"
+            else:
+                context['attendances'] = queryset.filter(course__id=course)
+                context['course'] = Course.objects.get(id=course)
+        if teacher:
+            if course and teacher and Teacher.objects.get(id=teacher).id != Course.objects.get(id=course).teacher_id:
+                context["error_message"] = "Teacher mismatch!"
+            else:
+                context['attendances'] = queryset.filter(course__teacher__id=teacher)
+                context['teacher'] = Teacher.objects.get(id=teacher)
 
         return context
     
