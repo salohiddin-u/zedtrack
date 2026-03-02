@@ -24,6 +24,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         user = self.request.user
         students = Student.objects.filter(user=user)
+
         present_yesterday = Attendance.objects.filter(user=user, status=True, time__date=datetime.today()-timedelta(days=1)).count()
         absent_yesterday = Attendance.objects.filter(user=user, status=False, time__date=datetime.today()-timedelta(days=1)).count()
         context['user'] = user
@@ -33,9 +34,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['present_yest_vs_tod'] = ((context['present_today'] - present_yesterday)/present_yesterday)*100 if present_yesterday else 0
         context['absent_yest_vs_tod'] = ((context['absent_today'] - absent_yesterday)/absent_yesterday)*100 if absent_yesterday else 0
         context['attendance_rate'] = (Attendance.objects.filter(user=user, status=True, time__date=datetime.today()).count()/Student.objects.filter(user=user).count())*100 if Student.objects.filter(user=user).count() else 0
-        context['attendance_rate_yesterday'] = (Attendance.objects.filter(user=user, status=True, time__date=datetime.today()-timedelta(days=1)).count()/Student.objects.filter(user=user).count())*100 if Student.objects.filter(user=user).count() else 0
+        context['attendance_rate_yesterday'] = (AttendanceRate.objects.filter(user=user, date__date=datetime.today()-timedelta(days=0)).values_list('rate', flat=True).first() or 0)
         context['diffrence_rate'] = context['attendance_rate'] - context['attendance_rate_yesterday']
-
         line_chart_labels = []
         line_chart_data = []
 
@@ -44,21 +44,18 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                ) * 100 if Student.objects.filter(user=self.request.user).count() else 0)
         line_chart_labels.append(datetime.today().date())
         for i in range(29):
-            day = ((datetime.today() - timedelta(days=1)) - timedelta(days=i)).date()
-
+            date = ((datetime.today() - timedelta(days=1)) - timedelta(days=i)).date()
+            
             rate = AttendanceRate.objects.filter(
                 user=self.request.user,
-                date=day
+                date__date=date
             ).values_list('rate', flat=True).first() or 0
             line_chart_data.append(rate)
-            line_chart_labels.append(day)
+            line_chart_labels.append(date)
         
-
-
+        
         context['line_chart_data'] = list(reversed(line_chart_data))
         context['line_chart_labels'] = list(reversed(line_chart_labels))
-        print(list(reversed(line_chart_data)))
-        print(list(reversed(line_chart_labels)))
         context['recents_attendance_records'] = Attendance.objects.filter(user=user, ).order_by("-time")[:5]
 
         since = timezone.now() - timedelta(days=30)
