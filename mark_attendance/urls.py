@@ -9,4 +9,5 @@ urlpatterns = [
     path('mark-attendance/create/<int:course_id>/', attendance_create, name="attendance-create"),
     path('history/', HistoryView.as_view(), name="history"),
     path('history/<str:start_date>/<str:end_date>/', HistoryView.as_view(), name="history"),
+    path('zedai/', ZedAI.as_view(), name="zedai"),
 ]
