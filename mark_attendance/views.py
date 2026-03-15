@@ -187,3 +187,8 @@ class HistoryView(LoginRequiredMixin, TemplateView):
 
         return context
     
+
+
+class ZedAI(LoginRequiredMixin, TemplateView):
+    template_name = "zedai.html"
+    login_url = "accounts/login"
