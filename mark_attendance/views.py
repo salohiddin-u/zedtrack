@@ -126,7 +126,6 @@ class MarkAttendanceView(LoginRequiredMixin, TemplateView):
         if attendances.exists():
             status = True
             context["attendances"] = attendances
-        print(attendances)
         context["status"] = status
 
         return context
