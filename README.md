@@ -62,4 +62,3 @@ ZedTrack is a web-based attendance management system built with **Django** that 
 
 ## 🎓 Author
 **Salohiddin Usmonaliyev**\
-Aspiring Data Scientist & Full-Stack Developer
